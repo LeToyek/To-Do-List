@@ -94,7 +94,7 @@ class _ListCardState extends State<ListCard> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
                     child: Text(
                       'Tasks',
                       style: Theme.of(context).textTheme.headline5?.copyWith(
