@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'To Do App',
       theme: ThemeData.dark(),
-      home: ListCard(),
+      home: MainScreen(),
     );
   }
 }

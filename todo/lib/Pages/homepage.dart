@@ -2,8 +2,20 @@ import 'package:todo/Pages/list_card_page.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/Screen/constants.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MainScreen extends StatefulWidget {
+  MainScreen({Key? key}) : super(key: key);
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final myController = TextEditingController();
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +44,14 @@ class HomePage extends StatelessWidget {
                       hintText: 'Full Name',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16)))),
+                  controller: myController,
                 ),
                 Spacer(),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ListCard()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ListCard(value: myController.text)));
                   },
                   child: Container(
                     width: double.infinity,
