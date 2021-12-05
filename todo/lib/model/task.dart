@@ -31,7 +31,7 @@ class Task {
       ),
       Task(
         iconData: Icons.live_help,
-        title: 'Personal',
+        title: 'School',
         bgColor: Colors.purple[800],
         iconColor: Colors.purple[100],
         btnColor: Colors.purple,
@@ -40,7 +40,7 @@ class Task {
       ),
       Task(
         iconData: Icons.card_travel,
-        title: 'Personal',
+        title: 'Company',
         bgColor: Colors.cyan[800],
         iconColor: Colors.cyan[100],
         btnColor: Colors.cyan,

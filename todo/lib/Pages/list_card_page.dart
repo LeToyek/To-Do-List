@@ -25,7 +25,7 @@ class _ListCardState extends State<ListCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Hi, ${widget.value}",
+                      Text("Hi ${widget.value}",
                           style: Theme.of(context)
                               .textTheme
                               .headline4
@@ -107,6 +107,19 @@ class _ListCardState extends State<ListCard> {
             ),
           )
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile')
+      ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          size: 32,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
