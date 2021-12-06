@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:todo/Pages/list_activity_page.dart';
 import 'package:todo/model/task.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -20,68 +21,79 @@ class Tasks extends StatelessWidget {
   }
 
   Widget buildAddTask() {
-    return DottedBorder(
-        borderType: BorderType.RRect,
-        padding: EdgeInsets.all(15),
-        dashPattern: [10, 10],
-        strokeWidth: 2,
-        radius: Radius.circular(20),
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Add',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ],
-            ),
-          ],
-        ));
+    return InkWell(
+      onTap: () => print('object'),
+      child: DottedBorder(
+          borderType: BorderType.RRect,
+          padding: EdgeInsets.all(15),
+          dashPattern: [10, 10],
+          strokeWidth: 2,
+          radius: Radius.circular(20),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Add',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ],
+              ),
+            ],
+          )),
+    );
   }
 
   Widget buildTask(BuildContext context, Task task) {
-    return Container(
-        padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            color: task.bgColor, borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              task.iconData,
-              color: task.iconColor,
-            ),
-            Spacer(),
-            Text(
-              task.title!,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildTaskStatus(
-                    task.btnColor!, task.iconColor!, '${task.left} left'),
-                SizedBox(
-                  width: 5,
-                ),
-                buildTaskStatus(
-                    task.iconColor!, task.btnColor!, '${task.done} done')
-              ],
-            )
-          ],
-        ));
+    return InkWell(
+      onTap: () =>
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ActivityPage(
+          name: task.title,
+        );
+      })),
+      child: Container(
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: task.bgColor, borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                task.iconData,
+                color: task.iconColor,
+              ),
+              Spacer(),
+              Text(
+                task.title!,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildTaskStatus(
+                      task.btnColor!, task.iconColor!, '${task.left} left'),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  buildTaskStatus(
+                      task.iconColor!, task.btnColor!, '${task.done} done')
+                ],
+              )
+            ],
+          )),
+    );
   }
 
   Widget buildTaskStatus(Color bgColor, Color txColor, String text) {
