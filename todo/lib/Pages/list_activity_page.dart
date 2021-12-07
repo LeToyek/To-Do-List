@@ -1,4 +1,8 @@
+import 'package:todo/Provider/Done_provider.dart';
+
+import '';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ActivityPage extends StatefulWidget {
   final String? name;
@@ -17,16 +21,25 @@ class _ActivityPageState extends State<ActivityPage> {
   }
 
   void addItemToList() => setState(() {
-        activityList.insert(activityList.length, myController.text);
+        if (myController.text.isNotEmpty) {
+          activityList.insert(activityList.length, myController.text);
+        }
       });
 
   @override
   Widget build(BuildContext context) {
+    int _currentIndex = 0;
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.name}'),
       ),
       floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            size: 32,
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
@@ -54,6 +67,10 @@ class _ActivityPageState extends State<ActivityPage> {
           padding: EdgeInsets.all(16),
           itemCount: activityList.length,
           itemBuilder: (BuildContext context, int index) {
+            // return Consumer<DoneProvider>(
+            //     builder: (context, DoneProvider data, widget) {
+            //       return Dismi
+            //     });
             return Dismissible(
               onDismissed: (DismissDirection direction) => setState(() {
                 activityList.removeAt(index);
@@ -73,21 +90,26 @@ class _ActivityPageState extends State<ActivityPage> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
-                    Icon(Icons.delete),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Icon(Icons.edit),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Icon(Icons.star_border)
+                    Icon(Icons.star_border),
                   ],
                 ),
                 margin: EdgeInsets.only(bottom: 16),
               ),
             );
           }),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile')
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

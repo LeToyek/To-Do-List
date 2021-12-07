@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/Pages/homepage.dart';
+import 'package:todo/Provider/Done_provider.dart';
 import 'package:todo/Widget/tasks.dart';
 
 class ListCard extends StatefulWidget {
@@ -14,6 +16,8 @@ class _ListCardState extends State<ListCard> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final doneModuleList =
+        Provider.of<DoneProvider>(context, listen: false).doneModuleList;
     return Scaffold(
       body: Stack(
         children: [
