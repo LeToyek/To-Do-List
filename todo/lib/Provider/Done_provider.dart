@@ -5,7 +5,7 @@ class DoneProvider extends ChangeNotifier {
 
   List<String> get doneModuleList => _doneModuleList;
 
-  void complete(String moduleName) {
+  void addData(String moduleName) {
     _doneModuleList.add(moduleName);
     notifyListeners();
   }

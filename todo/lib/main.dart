@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/Pages/homepage.dart';
 import 'package:todo/Pages/list_card_page.dart';
 import 'package:todo/Screen/constants.dart';
+
+import 'Provider/Done_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,11 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'To Do App',
-      theme: ThemeData.dark(),
-      home: MainScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => DoneProvider(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'To Do App',
+          theme: ThemeData.dark(),
+          home: MainScreen()),
     );
   }
 }

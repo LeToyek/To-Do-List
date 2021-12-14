@@ -13,18 +13,11 @@ class ActivityPage extends StatefulWidget {
 }
 
 class _ActivityPageState extends State<ActivityPage> {
-  final List<String> activityList = [];
   final myController = TextEditingController();
   void dispose() {
     myController.dispose();
     super.dispose();
   }
-
-  void addItemToList() => setState(() {
-        if (myController.text.isNotEmpty) {
-          activityList.insert(activityList.length, myController.text);
-        }
-      });
 
   @override
   Widget build(BuildContext context) {
@@ -57,46 +50,47 @@ class _ActivityPageState extends State<ActivityPage> {
                     actions: [
                       TextButton(
                           onPressed: () {
-                            addItemToList();
+                            Provider.of<DoneProvider>(context, listen: false)
+                                .addData(myController.text);
                             Navigator.pop(context, 'OK');
                           },
                           child: Text('OK'))
                     ],
                   ))),
-      body: ListView.builder(
-          padding: EdgeInsets.all(16),
-          itemCount: activityList.length,
-          itemBuilder: (BuildContext context, int index) {
-            // return Consumer<DoneProvider>(
-            //     builder: (context, DoneProvider data, widget) {
-            //       return Dismi
-            //     });
-            return Dismissible(
-              onDismissed: (DismissDirection direction) => setState(() {
-                activityList.removeAt(index);
-              }),
-              key: ValueKey(activityList[index]),
-              child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFF46A0AE),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      activityList[index],
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      body: Consumer<DoneProvider>(
+        builder: (context, model, _) {
+          return ListView.builder(
+              padding: EdgeInsets.all(16),
+              itemCount: model.doneModuleList.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  onDismissed: (DismissDirection direction) => setState(() {
+                    model.doneModuleList.removeAt(index);
+                  }),
+                  key: ValueKey(model.doneModuleList[index]),
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF46A0AE),
                     ),
-                    Spacer(),
-                    Icon(Icons.star_border),
-                  ],
-                ),
-                margin: EdgeInsets.only(bottom: 16),
-              ),
-            );
-          }),
+                    child: Row(
+                      children: [
+                        Text(
+                          model.doneModuleList[index],
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Spacer(),
+                        Icon(Icons.star_border),
+                      ],
+                    ),
+                    margin: EdgeInsets.only(bottom: 16),
+                  ),
+                );
+              });
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: [

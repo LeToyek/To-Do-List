@@ -16,8 +16,6 @@ class _ListCardState extends State<ListCard> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final doneModuleList =
-        Provider.of<DoneProvider>(context, listen: false).doneModuleList;
     return Scaffold(
       body: Stack(
         children: [
